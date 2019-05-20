@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "",
   "scripts": {
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "sequelize": "sequelize"
   },
   "dependencies": {
     "@types/bluebird": "^3.5.26",
