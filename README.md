@@ -118,6 +118,20 @@ Many GraphQL APIs proxy some endpoints to external REST APIs. In many cases, the
 
 `getAssets(name)` makes a request to a local HTTP server. However, as the field is not validated, directory traversal can be used to read files outside of the intended `assets` folder.
 
+### Unsafe Custom Scalars
+
+GraphQL allows for applications to define custom scalar types, which can be used by schemas as input types in addition to the built-in types. While GraphQL validates that the argument types are correct, custom scalars must be used and validated carefully. 
+
+This application uses the `GraphQLJSON` type from the `graphql-type-json` for parameters to the `login` mutation, instead of having separate `string` parameters. Because the types of the contained objects are not validated, the username and password may be objects instead of strings.
+
+As a result, passing the following as input to the login mutation will result in an authentication bypass.
+```
+{
+    username: "Selmer66",
+    password: {gt: ""}
+}
+```
+
 ### SQLi (bonus?)
 
 I have seen SQL injection in GraphQL APIs before, so this type of vulnerability is never going away.

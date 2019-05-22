@@ -1,4 +1,4 @@
-import {GraphQLObjectType, GraphQLString} from 'graphql'
+import {GraphQLObjectType} from 'graphql'
 
 import {SecretMutation} from '../mutations/secret_mutation'
 import { CreatePost } from '../mutations/create_post';

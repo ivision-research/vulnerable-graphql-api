@@ -1,4 +1,6 @@
-import { GraphQLFieldConfig, GraphQLString, GraphQLScalarType } from 'graphql'
+import { GraphQLFieldConfig, GraphQLString } from 'graphql'
+import { GraphQLJSON } from 'graphql-type-json'
+
 import { UserType } from '../types/user';
 
 import {db} from '../../../models'
@@ -28,15 +30,16 @@ export const Register: GraphQLFieldConfig<any,any,any> = {
 export const Login: GraphQLFieldConfig<any,any,any> = {
     type: UserType,
     args: {
-        username: {
-            type: GraphQLString
-        },
-        password: {
-            type: GraphQLString
+        input: {
+            type: GraphQLJSON
         }
     },
     resolve: async(_root, args, context) => {
-        let user = await db.User.findOne({where: args})
+        if (args.input.username === undefined || args.input.password === undefined) {
+            throw new Error("`username` and `password` must be given.");
+            return null;
+        }
+        let user = await db.User.findOne({where: args.input})
         if (user) {
             context.user = user;
             context.session.user_id = user.id;
