@@ -23,6 +23,7 @@
     "graphql": "^14.3.0",
     "sequelize": "^5.8.6",
     "sequelize-cli": "^5.4.0",
+    "sqlite": "^3.0.3",
     "sqlite3": "^4.0.8",
     "typescript": "^3.4.5"
   }
