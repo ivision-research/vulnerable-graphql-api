@@ -6,7 +6,7 @@ Authored by Aidan Noll, Carve Systems, LLC.
 
 ## Requirements
 
-Node, NPM, and Python (for "SSRF")
+Node, NPM, and Python
 
 ## Setup
 
@@ -119,7 +119,7 @@ mutation {
 }
 ```
 
-### SSRF to Backend APIs
+### Parameter Tampering to Backend APIs
 
 Many GraphQL APIs proxy some endpoints to external REST APIs. In many cases, they fail to validate the ID or other URL parameters, allowing for the endpoint reached to be modified.
 
