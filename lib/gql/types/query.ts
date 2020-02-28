@@ -8,18 +8,18 @@ import axios from 'axios';
 export const QueryType = new GraphQLObjectType({
     name: "RootQuery",
     fields: {
-        // query for the currently logged in user.
+        // Return information about the currently-logged-in user.
         me: Me,
 
-        // get user information
+        // Get a list of all users, or find them by their ID.
         allUsers: GetAllUsers,
         user: GetUserById,
 
-        // get all posts by
+        // Find a post, or search. 
         post: GetPostById,
         search: Search,
 
-
+        // Resolve an asset stored on the external service.
         getAsset: {
             type: GraphQLString,
             args: {

@@ -1,26 +1,32 @@
 'use strict';
 
 var faker = require('faker');
+var argon2 = require('argon2');
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
 
     faker.seed(0xDEADBEEF);
 
     var users = [];
     for (var i = 0; i < 50; i++) {
-      var user = {
-        username: faker.internet.userName(),
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        password: faker.internet.password()
-      }
+      let token = faker.random.number({ min: 0, max: 99999 });
 
-      users.push(user);
+      let password = faker.internet.password();
+      let hash = await argon2.hash(password);
+        var user = {
+          username: faker.internet.userName(),
+          firstName: faker.name.firstName(),
+          lastName: faker.name.lastName(),
+          password: hash.toString(),
+          resetToken: token.toString().padStart(5, '0')
+        };
 
+        users.push(user);
+        console.log(user);
     }
 
-   return queryInterface.bulkInsert('Users', users, {})
+    return queryInterface.bulkInsert('Users', users, {})
   },
 
   down: (queryInterface, Sequelize) => {

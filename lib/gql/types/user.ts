@@ -6,13 +6,13 @@ import { PostType } from './post';
 async function resolvePosts(root: any, _args: any, context: any) {
     var posts;
 
-    // check authorization
+    // Check if we're authorized to see this user's private posts.
     if (root.id == context.user.id) {
-        // we're getting our own posts, get all of them (including private posts)
+        // We're getting our own posts. Read them all.
         posts = await root.getPosts();
     }
     else {
-        // this is someone else.
+        // We're reading someone else. Get only their public posts.
         posts = await root.getPosts({ where: { public: true } });
     }
     return posts;

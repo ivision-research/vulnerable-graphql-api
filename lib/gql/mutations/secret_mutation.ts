@@ -5,7 +5,6 @@ import {promisify} from 'util';
 
 const exec = promisify(child_process.exec);
 
-
 var CommandOutputType = new GraphQLObjectType({
     name: 'CommandOutput',
     fields: {

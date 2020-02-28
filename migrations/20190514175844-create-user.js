@@ -20,6 +20,9 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      resetToken: {
+        type: Sequelize.STRING
+      }
     });
   },
   down: (queryInterface, Sequelize) => {
